@@ -1,0 +1,53 @@
+load "iovtk"
+load "mshmet"
+load "medit"
+load "msh3"
+load "gmsh"
+
+string step = "test"; // "test" or "predict"
+string dataDir = "data/";
+
+
+string data;
+{
+    ifstream dataFile("data.txt");
+    dataFile >> data;
+    cout << data << endl;
+}
+
+mesh3 Th = readmesh3(dataDir + "cad_" + data + "/mesh/cad_" + data + ".mesh");
+
+fespace Xh(Th, P1);
+Xh uPred, metricPred;
+
+{
+    ifstream uPredFile(dataDir + "cad_" + data + "/field/u_pred.txt");
+    uPredFile >> uPred[];
+}
+
+real[int] MPred = mshmet(Th, uPred);
+cout << MPred.min << " " << MPred.max << endl;
+
+for (int ii = 0; ii < Th.nv; ii++)
+    metricPred[][ii] = 10*MPred[ii];
+    
+savesol(dataDir + "cad_" + data + "/sol/cad_" + data + "_pred.sol", Th, metricPred);
+
+if (step=="test")
+{
+    Xh u, metric;
+
+    {
+        ifstream uFile(dataDir + "cad_" + data + "/field/u.txt");
+        uFile >> u[];
+    }
+
+    real[int] M = mshmet(Th, u);
+    cout << M.min << " " << M.max << endl;
+
+    for (int ii = 0; ii < Th.nv; ii++)
+        metric[][ii] = 10*M[ii];
+        
+    savesol(dataDir + "cad_" + data + "/sol/cad_" + data + ".sol", Th, metric);
+
+}
