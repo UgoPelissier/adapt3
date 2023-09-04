@@ -34,18 +34,18 @@ mkdir -p $data_dir/adapt/
 rm adapt.log
 
 echo "Generating geo file (python)"
-$python geo.py -d $data >> adapt.log
+$python src/geo.py -d $data >> src/adapt.log
 
 echo "Converting msh (gmsh) to mesh (INRIA)"
-$gmsh convert.geo >> adapt.log
+$gmsh src/convert.geo >> src/adapt.log
 
 echo "Computing adaptation metric (FreeFem++)"
-$freefem metric.edp >> adapt.log
+$freefem src/metric.edp >> src/adapt.log
 
-rm data.txt
+rm src/data.txt
 
 echo "Adapting mesh (MMG) to real solution"
-$mmg3d $data_dir/mesh/cad_$data.mesh -sol $data_dir/sol/cad_$data.sol >> adapt.log
+$mmg3d $data_dir/mesh/cad_$data.mesh -sol $data_dir/sol/cad_$data.sol >> src/adapt.log
 mv $data_dir/mesh/cad_$data.o.mesh $data_dir/adapt/cad_${data}.o.mesh
 
 echo "Adapting mesh (MMG) to predicted solution"
