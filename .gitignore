@@ -1,2 +1,6 @@
-data
+data/cad_020/
+data/cad_499/adapt/
+data/cad_499/images/
+data/cad_499/sol/
+data/cad_499/mesh/*.mesh
 *.log
