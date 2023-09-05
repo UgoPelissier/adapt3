@@ -5,12 +5,12 @@ load "msh3"
 load "gmsh"
 
 string step = "test"; // "test" or "predict"
-string dataDir = "data/";
+string dataDir = "src/data/";
 
 
 string data;
 {
-    ifstream dataFile("data.txt");
+    ifstream dataFile("src/data.txt");
     dataFile >> data;
     cout << data << endl;
 }

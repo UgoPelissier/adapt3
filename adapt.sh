@@ -24,14 +24,14 @@ if [ $data -lt 10 ]
         data=0$data
 fi
 
-echo $data >> data.txt
+echo $data >> src/data.txt
 
-data_dir=data/cad_$data
+data_dir=src/data/cad_$data
 
 mkdir -p $data_dir/sol/
 mkdir -p $data_dir/adapt/
 
-rm adapt.log
+rm src/adapt.log
 
 echo "Generating geo file (python)"
 $python src/geo.py -d $data >> src/adapt.log
@@ -49,7 +49,7 @@ $mmg3d $data_dir/mesh/cad_$data.mesh -sol $data_dir/sol/cad_$data.sol >> src/ada
 mv $data_dir/mesh/cad_$data.o.mesh $data_dir/adapt/cad_${data}.o.mesh
 
 echo "Adapting mesh (MMG) to predicted solution"
-$mmg3d $data_dir/mesh/cad_$data.mesh -sol $data_dir/sol/cad_${data}_pred.sol >> adapt.log
+$mmg3d $data_dir/mesh/cad_$data.mesh -sol $data_dir/sol/cad_${data}_pred.sol >> src/adapt.log
 mv $data_dir/mesh/cad_$data.o.mesh $data_dir/adapt/cad_${data}_pred.o.mesh
 
 rm $data_dir/mesh/cad_$data.o.sol

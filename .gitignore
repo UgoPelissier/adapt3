@@ -1,6 +1,7 @@
-data/cad_020/
-data/cad_499/adapt/
-data/cad_499/images/
-data/cad_499/sol/
-data/cad_499/mesh/*.mesh
+src/data/cad_020/
+src/data/cad_500/
+src/data/cad_499/adapt/
+src/data/cad_499/images/
+src/data/cad_499/sol/
+src/data/cad_499/mesh/*.mesh
 *.log
