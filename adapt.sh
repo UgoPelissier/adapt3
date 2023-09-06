@@ -6,6 +6,12 @@ freefem="/mnt/host/c/Users/ugo.pelissier/FreeFem++/FreeFem++.exe"
 gmsh="/mnt/host/c/Users/ugo.pelissier/gmsh/gmsh.exe"
 mmg3d="/mnt/host/c/Users/ugo.pelissier/mmg/mmg3d_O3.exe"
 
+if [ "$1" == "-h" ]; then
+    echo "Usage: ./adapt.sh -d <data>"
+    echo "data: number of the data to adapt"
+    exit 0
+fi
+
 while getopts d: flag
 do
     case "${flag}" in
