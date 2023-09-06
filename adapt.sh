@@ -6,14 +6,11 @@ freefem="/mnt/host/c/Users/ugo.pelissier/FreeFem++/FreeFem++.exe"
 gmsh="/mnt/host/c/Users/ugo.pelissier/gmsh/gmsh.exe"
 mmg3d="/mnt/host/c/Users/ugo.pelissier/mmg/mmg3d_O3.exe"
 
-for arg in "$@"
+while getopts d: flag
 do
-   key=$(echo $arg | cut -f1 -d=)
-
-   key_length=${#key}
-   value="${arg:$key_length+1}"
-
-   export "$key"="$value"
+    case "${flag}" in
+        d) data=${OPTARG};;
+    esac
 done
 
 if [ $data -lt 10 ]
