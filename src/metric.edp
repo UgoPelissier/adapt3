@@ -4,14 +4,18 @@ load "medit"
 load "msh3"
 load "gmsh"
 
-string step = "test"; // "test" or "predict"
 string dataDir = "src/data/";
-
 
 string data;
 {
     ifstream dataFile("src/data.txt");
     dataFile >> data;
+}
+
+string step;
+{
+    ifstream stepFile("src/step.txt");
+    stepFile >> step;
 }
 
 mesh3 Th = readmesh3(dataDir + "cad_" + data + "/mesh/cad_" + data + ".mesh");

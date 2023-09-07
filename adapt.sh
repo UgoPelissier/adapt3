@@ -12,10 +12,11 @@ if [ "$1" == "-h" ]; then
     exit 0
 fi
 
-while getopts d: flag
+while getopts d:s: flag
 do
     case "${flag}" in
         d) data=${OPTARG};;
+        s) step=${OPTARG};;
     esac
 done
 
@@ -28,6 +29,7 @@ if [ $data -lt 10 ]
 fi
 
 echo $data >> src/data.txt
+echo $step >> src/step.txt
 
 data_dir=src/data/cad_$data
 
@@ -46,10 +48,14 @@ echo "Computing adaptation metric (FreeFem++)"
 $freefem src/metric.edp >> src/adapt.log
 
 rm src/data.txt
+rm src/step.txt
 
-echo "Adapting mesh (MMG) to real solution"
-$mmg3d $data_dir/mesh/cad_$data.mesh -sol $data_dir/sol/cad_$data.sol >> src/adapt.log
-mv $data_dir/mesh/cad_$data.o.mesh $data_dir/adapt/cad_${data}.o.mesh
+if [ '$step' = 'test' ]
+then
+    echo "Adapting mesh (MMG) to real solution"
+    $mmg3d $data_dir/mesh/cad_$data.mesh -sol $data_dir/sol/cad_$data.sol >> src/adapt.log
+    mv $data_dir/mesh/cad_$data.o.mesh $data_dir/adapt/cad_${data}.o.mesh
+fi
 
 echo "Adapting mesh (MMG) to predicted solution"
 $mmg3d $data_dir/mesh/cad_$data.mesh -sol $data_dir/sol/cad_${data}_pred.sol >> src/adapt.log
