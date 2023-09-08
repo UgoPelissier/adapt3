@@ -8,6 +8,6 @@ data = args.data
 
 with open("src/convert.geo", 'w') as geo:
     geo.write('//+\nSetFactory("OpenCASCADE");\n')
-    geo.write('//+\nMerge "data/cad_{:s}/mesh/cad_{:s}.msh";\n'.format(data, data))
+    geo.write('//+\nMerge "data/cad_{:s}/mesh/cad_{:s}.msh2";\n'.format(data, data))
     geo.write('//+\nSave "data/cad_{:s}/mesh/cad_{:s}.mesh";\n'.format(data, data))
     geo.write('//+\nExit;\n')
