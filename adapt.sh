@@ -43,7 +43,7 @@ echo "Generating geo file (python)"
 $python src/geo.py -d $data >> src/adapt.log
 
 echo "Converting msh (gmsh) to mesh (INRIA)"
-$gmsh src/convert.geo >> src/adapt.log
+$gmsh src/convert.geo - >> src/adapt.log
 
 echo "Computing adaptation metric (FreeFem++)"
 $freefem src/metric.edp >> src/adapt.log
